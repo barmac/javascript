@@ -169,7 +169,7 @@ expressionNoComma {
   ConditionalExpression { expressionNoComma !ternary LogicOp<"?"> expressionNoComma LogicOp<":"> expressionNoComma } |
   AssignmentExpression |
   PostfixExpression { expressionNoComma !postfix PostfixOp } |
-  CallExpression { expressionNoComma !call ArgList } |
+  CallExpression |
   TaggedTemplatExpression { expressionNoComma !taggedTemplate TemplateString }
 }
 
@@ -229,8 +229,10 @@ AssignmentExpression {
   (VariableName | MemberExpression | ArrayPattern | ObjectPattern) !assign "=" expressionNoComma
 }
 
+CallExpression { expressionNoComma !call ArgList }
+
 MemberExpression {
-  expressionNoComma !member (("." | "?.") PropertyName | "[" expression "]")
+  expressionNoComma !member ("." PropertyName | "[" expression "]")
 }
 
 ArgList {

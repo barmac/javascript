@@ -433,7 +433,6 @@ Script(ExpressionStatement(ArrayExpression(
 # Member expressions
 
 x.someProperty;
-x?.other;
 x[someVariable];
 f()["some-string"];
 return returned.promise().done(a).fail(b);
@@ -441,7 +440,6 @@ return returned.promise().done(a).fail(b);
 ==>
 
 Script(
-  ExpressionStatement(MemberExpression(VariableName,PropertyName)),
   ExpressionStatement(MemberExpression(VariableName,PropertyName)),
   ExpressionStatement(MemberExpression(VariableName,VariableName)),
   ExpressionStatement(MemberExpression(CallExpression(VariableName,ArgList),String)),
