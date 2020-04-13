@@ -33,10 +33,12 @@ Script(ExpressionStatement(String),
 0o7632157312;
 0b1010101001;
 1e+3;
+.9;
 
 ==>
 
 Script(
+  ExpressionStatement(Number),
   ExpressionStatement(Number),
   ExpressionStatement(Number),
   ExpressionStatement(Number),
@@ -161,12 +163,15 @@ Script(ExpressionStatement(ParenthesizedExpression(SequenceExpression(
 
 condition ? case1 : case2;
 
+condition?.8 : 2;
+
 x.y = some.condition ? 2**x : 1 - 2;
 
 ==>
 
 Script(
   ExpressionStatement(ConditionalExpression(VariableName,LogicOp,VariableName,LogicOp,VariableName)),
+  ExpressionStatement(ConditionalExpression(VariableName,LogicOp,Number,LogicOp,Number)),
   ExpressionStatement(AssignmentExpression(
     MemberExpression(VariableName,PropertyName),Equals,
     ConditionalExpression(
