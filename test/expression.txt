@@ -451,6 +451,24 @@ Script(
   ReturnStatement(return,CallExpression(MemberExpression(CallExpression(MemberExpression(CallExpression(
     MemberExpression(VariableName,PropertyName),ArgList),PropertyName),ArgList(VariableName)),PropertyName),ArgList(VariableName))))
 
+# Optional expressions
+
+x?.other;
+x?.["some-string"];
+x?.[someVariable];
+f?.()["some-string];
+x?.nestedMember.nested?.optional;
+
+==>
+
+Script(
+  ExpressionStatement(OptionalExpression(VariableName,PropertyName)),
+  ExpressionStatement(OptionalExpression(VariableName,String)),
+  ExpressionStatement(OptionalExpression(VariableName,VariableName)),
+  ExpressionStatement(OptionalExpression(CallExpression(VariableName,ArgList),String)),
+  ExpressionStatement(OptionalExpression(VariableName,MemberExpression(VariableName, OptionalExpression(VariableName,VariableName))),
+)
+
 # Callback chain
 
 return this.map(function (a) {

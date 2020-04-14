@@ -19,6 +19,7 @@
   bitAnd @left,
   and @left,
   or @left,
+  optionalChain @left,
   ternary @left,
   assign @left,
   comma @left,
@@ -165,6 +166,7 @@ expressionNoComma {
   FunctionExpression |
   ArrowFunction |
   MemberExpression |
+  OptionalExpression |
   BinaryExpression |
   ConditionalExpression { expressionNoComma !ternary LogicOp<"?"> expressionNoComma LogicOp<":"> expressionNoComma } |
   AssignmentExpression |
@@ -233,6 +235,14 @@ CallExpression { expressionNoComma !call ArgList }
 
 MemberExpression {
   expressionNoComma !member ("." PropertyName | "[" expression "]")
+}
+
+OptionalExpression {
+  MemberExpression OptionalChain | CallExpression OptionalChain | OptionalExpression OptionalChain
+}
+
+OptionalChain {
+  !optionalChain "?." (ArgList | PropertyName | "[" expression "]")
 }
 
 ArgList {
