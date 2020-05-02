@@ -170,7 +170,8 @@ expressionNoComma {
   AssignmentExpression |
   PostfixExpression { expressionNoComma !postfix PostfixOp } |
   CallExpression { expressionNoComma !call ArgList } |
-  TaggedTemplatExpression { expressionNoComma !taggedTemplate TemplateString }
+  TaggedTemplatExpression { expressionNoComma !taggedTemplate TemplateString } |
+  jsxExpression { JSXElement | JSXFragment }
 }
 
 ParenthesizedExpression { "(" expression ")" }
@@ -257,6 +258,30 @@ commaSep1<content> {
   content ("," content)*
 }
 
+// JSX
+
+JSXElement { JSXSelfClosingElement | JSXOpeningElement JSXChildren? JSXClosingElement }
+
+JSXSelfClosingElement { "<" JSXElementName "/>" }
+
+JSXOpeningElement { "<" JSXElementName ">" }
+
+JSXClosingElement { "</" JSXElementName ">" }
+
+JSXFragment { "<>" JSXChildren? "</>" }
+
+JSXElementName { JSXIdentifier }
+
+JSXIdentifier { VariableName }
+
+JSXChildren { JSXChild JSXChildren? }
+
+JSXChild { JSXText | JSXElement | "{" JSXChildExpression? "}" }
+
+JSXText { jsxTextCharacter+ }
+
+JSXChildExpression { expression }
+
 // Keywords
 
 kw<term> { @specialize[name={term}]<identifier, term> }
@@ -331,6 +356,10 @@ PropertyNameDefinition { word }
     '"' (![\\\n"] | "\\" _)* '"'? |
     "'" (![\\\n'] | "\\" _)* "'"?
   }
+
+  jsxTextCharacter { ![{}<>] }
+
+  @precedence { BlockComment, LineComment, whitespace, jsxTextCharacter }
 
   templateStart { "`" }
 

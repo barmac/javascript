@@ -1,0 +1,205 @@
+# JSXSelfClosingElement
+
+<Component />
+
+==>
+
+Script(
+  ExpressionStatement(
+    JSXElement(
+      JSXSelfClosingElement(
+        JSXElementName(
+          JSXIdentifier(
+            VariableName
+          )
+        )
+      )
+    )
+  )
+)
+
+# JSXElementName
+
+<Component>children</Component>;
+<Component><NestedComponent/></Component>
+
+
+==>
+
+Script(
+  ExpressionStatement(
+    JSXElement(
+      JSXOpeningElement(
+        JSXElementName(
+          JSXIdentifier(
+            VariableName
+          )
+        )
+      ),
+      JSXChildren(
+        JSXChild(
+          JSXText
+        )
+      )
+      JSXClosingElement(
+        JSXElementName(
+          JSXIdentifier(
+            VariableName
+          )
+        )
+      )
+    )
+  ),
+  ExpressionStatement(
+    JSXElement(
+      JSXOpeningElement(
+        JSXElementName(
+          JSXIdentifier(
+            VariableName
+          )
+        )
+      ),
+      JSXChildren(
+        JSXChild(
+          JSXElement(
+            JSXSelfClosingElement(
+              JSXElementName(
+                JSXIdentifier(
+                  VariableName
+                )
+              )
+            )
+          )
+        )
+      ),
+      JSXClosingElement(
+        JSXElementName(
+          JSXIdentifier(
+            VariableName
+          )
+        )
+      )
+    )
+  )
+)
+
+# JSXFragment
+
+<></>
+<><Component/></>
+
+==>
+
+Script(
+  ExpressionStatement(
+    JSXFragment
+  ),
+  ExpressionStatement(
+    JSXFragment(
+      JSXChildren(
+        JSXChild(
+          JSXElement(
+            JSXSelfClosingElement(
+              JSXElementName(
+                JSXIdentifier(
+                  VariableName
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+# JSXChild
+
+<Component>{}</Component>
+
+==>
+
+Script(
+  ExpressionStatement(
+    JSXElement(
+      JSXOpeningElement(
+        JSXElementName(
+          JSXIdentifier(
+            VariableName
+          )
+        )
+      ),
+      JSXChildren(
+        JSXChild
+      ),
+      JSXClosingElement(
+        JSXElementName(
+          JSXIdentifier(
+            VariableName
+          )
+        )
+      )
+    )
+  )
+)
+
+# JSXChildExpression
+
+<Component>{ a }</Component>
+<Component>{ ...a }</Component>
+
+==>
+
+
+Script(
+  ExpressionStatement(
+    JSXElement(
+      JSXOpeningElement(
+        JSXElementName(
+          JSXIdentifier(
+            VariableName
+          )
+        )
+      ),
+      JSXChildren(
+        JSXChild(
+          JSXChildExpression(
+            VariableName
+          )
+        )
+      ),
+      JSXClosingElement(
+        JSXElementName(
+          JSXIdentifier(
+            VariableName
+          )
+        )
+      )
+    )
+  ),
+  ExpressionStatement(
+    JSXElement(
+      JSXOpeningElement(
+        JSXElementName(
+          JSXIdentifier(
+            VariableName
+          )
+        )
+      ),
+      JSXChildren(
+        JSXChild(
+          JSXChildExpression(
+            VariableName
+          )
+        )
+      ),
+      JSXClosingElement(
+        JSXElementName(
+          JSXIdentifier(
+            VariableName
+          )
+        )
+      )
+    )
+  )
+)
